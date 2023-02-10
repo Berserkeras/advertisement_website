@@ -11,7 +11,7 @@ function App () {
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<Landing />} />
-                <Route path="register" element={<CreateAd />} />
+                <Route path="create" element={<CreateAd />} />
                 <Route path="*" element={<Error />} />
             </Routes>
             <ToastContainer />
