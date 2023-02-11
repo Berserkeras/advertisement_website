@@ -71,7 +71,7 @@
 						<version>1.11.2</version>
 						<configuration>
 							<nodeVersion>v4.6.0</nodeVersion>
-							<workingDirectory>src/frontend</workingDirectory>
+							<workingDirectory>../frontend/react-ui/src</workingDirectory>
 						</configuration>
 						<executions>
 							<execution>
@@ -116,9 +116,8 @@
 								<configuration>
 									<resources>
 										<resource>
-											<directory>src/frontend/build</directory>
+											<directory>../frontend/react-ui/build</directory>
 										</resource>
-
 									</resources>
 									<outputDirectory>${basedir}/target/classes/static</outputDirectory>
 								</configuration>
