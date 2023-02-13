@@ -1,7 +1,9 @@
 import styled from "styled-components";
 
 const LandingWrapper = styled.main`
-
+  
+  
+  
   .landingApplyBtn,
   input[type="submit"] {
     top: 40%;

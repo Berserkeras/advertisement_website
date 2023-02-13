@@ -19,6 +19,7 @@ public class AdBoardController {
     }
 
     @PostMapping
+    @CrossOrigin
     public void addAd(@RequestBody AdBoard adBoard) {
         adBoardService.addAdd(adBoard);
     }

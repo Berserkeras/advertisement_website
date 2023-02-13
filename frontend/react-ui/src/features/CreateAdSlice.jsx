@@ -7,14 +7,15 @@ const initialState = {
 }
 
 export const createAd = createAsyncThunk(
-    'ad/createAd',
-    async ({ title, description, price, category }, thunkAPI) => {
+    'posts/getPosts',
+    async ({ title, description, price, category, city }, thunkAPI) => {
         try {
-            const resp = await customFetch.post('ads/create_ad/', {
+            const resp = await customFetch.post('api/v1/ad-board', {
                 title,
                 description,
                 price,
-                category
+                category,
+                city
             })
             console.log(resp)
             const { data } = resp
