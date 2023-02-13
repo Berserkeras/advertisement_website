@@ -14,4 +14,9 @@ public class AdBoardService {
     public List<AdBoard> getAllBoardAds() {
         return adBoardRepository.findAll();
     }
+
+    public void addAdd(AdBoard adBoard) {
+        // check if email is taken
+        adBoardRepository.save(adBoard);
+    }
 }
