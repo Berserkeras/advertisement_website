@@ -7,6 +7,7 @@ const FormCreateAd = ({ type, name, value, handleChange, labelText, placeholder 
                 {labelText || name}
             </label>
             <input
+
                 type={type}
                 value={value}
                 name={name}
@@ -23,7 +24,7 @@ export default FormCreateAd
 FormCreateAd.propTypes = {
     type: PropTypes.any,
     title: PropTypes.string,
-    value: PropTypes.string,
+    imageVal: PropTypes.object,
     handleChange: PropTypes.func,
     labelText: PropTypes.string
 }
