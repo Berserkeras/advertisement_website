@@ -37,6 +37,8 @@ public class AdBoardEntity extends AbstractTimeStampEntity {
     private String contactData;
     private BigInteger viewCount = BigInteger.ZERO;
 
+    private byte[] image;
+
     @OneToMany(mappedBy = "ad",
             cascade = CascadeType.ALL,
             fetch = FetchType.EAGER,

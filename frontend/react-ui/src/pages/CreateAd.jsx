@@ -10,7 +10,8 @@ const initialState = {
     description: "",
     price: "",
     category: "",
-    city: ""
+    city: "",
+    image: null
 }
 
 const CreateAd = () => {
@@ -23,23 +24,34 @@ const CreateAd = () => {
         setValues({ ...values, [name]: value });
     }
 
+    const handleImageChange = (event) => {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+        reader.onload = () => {
+            const imageData = reader.result.split(',')[1]; // extract the Base64-encoded image data
+            setValues({ ...values, image: imageData });
+        };
+        reader.readAsDataURL(file);
+    };
+
     const onSubmit = (e) => {
         e.preventDefault()
 
-        const { title, description, price, category, city } = values
+        const { title, description, price, category, city, image } = values
         console.log(title)
         if (!title || !description || !price || !category || !city) {
             toast.error('Please fill out all fields')
             return
         }
 
-        console.log('title: ' + title)
+        console.log('image' + image)
         dispatch(createAd({
             title,
             description,
             price,
             category,
-            city
+            city,
+            image
         }))
     }
     useEffect(() => {
@@ -52,6 +64,7 @@ const CreateAd = () => {
     return (
         <CreateAdWrapper className="full-register-page">
             <form className="form-register" onSubmit={onSubmit}>
+                // TODO Map
                 <FormCreateAd
                     type="title"
                     name="title"
@@ -91,6 +104,12 @@ const CreateAd = () => {
                     value={values.category}
                     handleChange={handleChange}
                     placeholder="category"
+                />
+                <FormCreateAd
+                    type="file"
+                    name="image"
+                    labelText="image"
+                    handleChange={handleImageChange}
                 />
                 <button type="submit" className="btn-register" disabled={isLoading}>
                     {isLoading ? 'Loading...' : 'Create' }
