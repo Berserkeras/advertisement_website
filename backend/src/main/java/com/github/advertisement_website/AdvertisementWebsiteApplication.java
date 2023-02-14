@@ -10,5 +10,4 @@ public class AdvertisementWebsiteApplication {
 		SpringApplication.run(AdvertisementWebsiteApplication.class, args);
 		System.out.println("http://localhost:8080/api/v1/ad-board");
 	}
-
 }

@@ -1,7 +1,6 @@
-package com.github.advertisement_website.entity.ad_board;
+package com.github.advertisement_website.entity;
 
-import com.github.advertisement_website.entity.AbstractTimeStampEntity;
-import com.github.advertisement_website.entity.comments.Comments;
+import com.github.advertisement_website.response.adboard.AdCategory;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -17,8 +16,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table
-public class AdBoard  extends AbstractTimeStampEntity {
+@Table(name = "ad_board")
+public class AdBoardEntity extends AbstractTimeStampEntity {
     @Id
     @SequenceGenerator(
             name = "adboard_sequence",
@@ -43,10 +42,10 @@ public class AdBoard  extends AbstractTimeStampEntity {
             fetch = FetchType.EAGER,
             orphanRemoval = true
     )
-    private List<Comments> comments = new ArrayList<>();
+    private List<CommentsEntity> comments = new ArrayList<>();
 
-    public AdBoard(String title, String description, BigDecimal price, String city,
-                   AdCategory category, BigInteger viewCount, String contactData) {
+    public AdBoardEntity(String title, String description, BigDecimal price, String city,
+                         AdCategory category, BigInteger viewCount, String contactData) {
         this.title = title;
         this.description = description;
         this.price = price;
