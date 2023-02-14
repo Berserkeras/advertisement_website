@@ -32,7 +32,11 @@ const CreateAd = () => {
         const image = event.target.name;
         reader.onload = () => {
             const imageData = reader.result.split(',')[1]; // extract the Base64-encoded image data
-            setValues({ ...values , [image]: imageData  });
+            const isPng = file.type === 'image/png';
+            isPng
+                ? setValues({ ...values , [image]: imageData  })
+                : toast.error("Wrong image format. Please upload a PNG file.");
+
         };
         reader.readAsDataURL(file);
     };
