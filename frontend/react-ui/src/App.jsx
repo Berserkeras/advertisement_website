@@ -12,6 +12,7 @@ function App () {
             <Routes>
                 <Route path="/" element={<Landing />} />
                 <Route path="create" element={<CreateAd />} />
+                <Route path="ad-id/:uuid" element={<CreateAd />} />
                 <Route path="*" element={<Error />} />
             </Routes>
             <ToastContainer />

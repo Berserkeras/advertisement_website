@@ -1,29 +1,32 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import customFetch from '../features/Axios'
 import { toast } from 'react-toastify'
+import {v4 as uuid } from "uuid";
 
 const initialState = {
     isLoading: false,
+    unique_id: ""
 }
 
 export const createAd = createAsyncThunk(
     'posts/getPosts',
     async ({ title, description, price, category, city, image }, thunkAPI) => {
         try {
+            const ad_user_id = uuid(); // generate a new UUID
             const resp = await customFetch.post('api/v1/ad-board', {
                 title,
                 description,
                 price,
                 category,
                 city,
-                image
+                image,
+                ad_user_id
             })
-            console.log(resp)
-            const { data } = resp
-            return data
+            const { config: { data } } = resp
+            return JSON.parse(data)
         } catch (error) {
             console.log('ERROR: response.status: ' + error.response.status)
-            console.log(error.response.data)
+            console.log(error.config.data)
             return thunkAPI.rejectWithValue(error.response.data)
         }
     }
@@ -38,10 +41,13 @@ const createAdSlice = createSlice({
                 state.isLoading = true
             })
             .addCase(createAd.fulfilled, (state, { payload }) => {
-                const { title, description, price, category } = payload
-                console.log('Ad info ' + JSON.stringify(payload))
+                const { title, description, price, category, ad_user_id } = payload
+                console.log("typeof !" + typeof payload)
+                console.log("prop!" + ad_user_id)
+                console.log('Ad info ' + JSON.stringify({ title, description, price, category }))
                 state.isLoading = false
                 state.ad = { title, description, price, category }
+                state.create = ad_user_id
                 toast.success(`Ad created for ${title}.`)
             })
             .addCase(createAd.rejected, (state, { payload }) => {

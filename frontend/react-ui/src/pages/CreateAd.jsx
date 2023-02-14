@@ -4,11 +4,12 @@ import FormCreateAd from '../components/FormCreateAd'
 import { toast } from 'react-toastify'
 import { useDispatch, useSelector } from 'react-redux'
 import { createAd } from '../features/CreateAdSlice'
+import {useNavigate} from "react-router-dom";
 
 const initialState = {
     title: "",
     description: "",
-    price: "",
+    price: 0,
     category: "",
     city: "",
     image: null
@@ -16,20 +17,22 @@ const initialState = {
 
 const CreateAd = () => {
     const [values, setValues] = useState(initialState)
-    const { create, isLoading } = useSelector((store) => store.create)
+    const { create, isLoading  } = useSelector((store) => store.create)
+    const navigate = useNavigate()
     const dispatch = useDispatch()
-    const handleChange = (e) => {
-        const name = e.target.name;
-        const value = e.target.value;
+    const handleChange = (event) => {
+        const name = event.target.name;
+        const value = event.target.value;
         setValues({ ...values, [name]: value });
     }
 
     const handleImageChange = (event) => {
         const file = event.target.files[0];
         const reader = new FileReader();
+        const image = event.target.name;
         reader.onload = () => {
             const imageData = reader.result.split(',')[1]; // extract the Base64-encoded image data
-            setValues({ ...values, image: imageData });
+            setValues({ ...values , [image]: imageData  });
         };
         reader.readAsDataURL(file);
     };
@@ -44,7 +47,6 @@ const CreateAd = () => {
             return
         }
 
-        console.log('image' + image)
         dispatch(createAd({
             title,
             description,
@@ -55,23 +57,24 @@ const CreateAd = () => {
         }))
     }
     useEffect(() => {
-        if (create) {
+        if (create?.length) {
             setTimeout(() => {
-                console.log("show UUID")
+                console.log("show UUID:", create);
+                navigate(`/ad-id/${create}`);
             }, 2000);
         }
-    }, [create]);
+    }, [create, navigate]);
+
     return (
         <CreateAdWrapper className="full-register-page">
             <form className="form-register" onSubmit={onSubmit}>
-                // TODO Map
+                {/* TODO Map */}
                 <FormCreateAd
                     type="title"
                     name="title"
                     labelText="title"
                     value={values.title}
                     handleChange={handleChange}
-                    placeholder="title"
                 />
                 <FormCreateAd
                     type="description"
@@ -79,7 +82,6 @@ const CreateAd = () => {
                     labelText="description"
                     value={values.description}
                     handleChange={handleChange}
-                    placeholder="description"
                 />
                 <FormCreateAd
                     type="price"
@@ -87,7 +89,6 @@ const CreateAd = () => {
                     labelText="price"
                     value={values.price}
                     handleChange={handleChange}
-                    placeholder="price"
                 />
                 <FormCreateAd
                     type="city"
@@ -95,15 +96,13 @@ const CreateAd = () => {
                     labelText="city"
                     value={values.city}
                     handleChange={handleChange}
-                    placeholder="city"
                 />
                 <FormCreateAd
                     type="category"
                     name="category"
                     labelText="category"
-                    value={values.category}
+                    value={values.category }
                     handleChange={handleChange}
-                    placeholder="category"
                 />
                 <FormCreateAd
                     type="file"
