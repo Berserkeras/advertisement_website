@@ -9,9 +9,9 @@ const FormCreateAd = ({ type, name, value, handleChange, labelText, placeholder 
             <input
 
                 type={type}
-                value={value}
+                value={value }
                 name={name}
-                onChange={handleChange}
+                onChange={handleChange }
                 className="form-input"
                 placeholder={placeholder}
             />
