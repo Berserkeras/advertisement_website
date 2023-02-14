@@ -1,4 +1,4 @@
-package com.github.advertisement_website.entity.ad_board;
+package com.github.advertisement_website.response.adboard;
 
 public enum AdCategory {
     ELECTRONICS,
