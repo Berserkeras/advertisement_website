@@ -9,10 +9,11 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Repository("adBoardRepository")
 public interface AdBoardRepository extends JpaRepository<AdBoardEntity, Long> {
-
+    void deleteByAdId(UUID ad_user_id);
     @Transactional
     @Modifying
     @Query("DELETE FROM AdBoardEntity a WHERE a.createTime < :twoWeeksAgo")
