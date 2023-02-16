@@ -30,6 +30,9 @@ public class AdBoardEntity extends AbstractTimeStampEntity {
             strategy = GenerationType.SEQUENCE)
     private Long id;
     private String title;
+
+    @Column(name ="ad_id")
+    private UUID adId;
     private String description;
     private BigDecimal price;
     private String city;
@@ -40,23 +43,10 @@ public class AdBoardEntity extends AbstractTimeStampEntity {
 
     private byte[] image;
 
-    private UUID ad_user_id;
-
     @OneToMany(mappedBy = "ad",
             cascade = CascadeType.ALL,
             fetch = FetchType.EAGER,
             orphanRemoval = true
     )
     private List<CommentsEntity> comments = new ArrayList<>();
-
-    public AdBoardEntity(String title, String description, BigDecimal price, String city,
-                         AdCategory category, BigInteger viewCount, String contactData) {
-        this.title = title;
-        this.description = description;
-        this.price = price;
-        this.city = city;
-        this.category = category;
-        this.viewCount = viewCount;
-        this.contactData = contactData;
-    }
 }

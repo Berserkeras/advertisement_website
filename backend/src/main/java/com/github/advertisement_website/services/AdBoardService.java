@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class AdBoardService {
@@ -27,8 +28,8 @@ public class AdBoardService {
     }
 
 
-    public void delete(Long id) {
-        adBoardRepository.deleteById(id);
+    public void deleteByAdId(UUID adId) {
+        adBoardRepository.deleteByAdId(adId);
     }
 
 
