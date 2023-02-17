@@ -27,11 +27,11 @@ public class AdBoardModel implements Serializable  {
         this.title = title;
     }
 
-    public String getContent() {
+    public String getDescription() {
         return description;
     }
 
-    public void setContent(String content) {
+    public void setDescription(String content) {
         this.description = content;
     }
 
@@ -43,11 +43,11 @@ public class AdBoardModel implements Serializable  {
         this.city = city;
     }
 
-    public String getAuthorName() {
+    public String getContactData() {
         return contactData;
     }
 
-    public void setAuthorName(String authorName) {
+    public void setContactData(String authorName) {
         this.contactData = authorName;
     }
 
