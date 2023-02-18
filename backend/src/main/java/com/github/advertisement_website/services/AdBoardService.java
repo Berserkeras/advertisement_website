@@ -1,6 +1,8 @@
 package com.github.advertisement_website.services;
 
 import com.github.advertisement_website.entity.AdBoardEntity;
+import com.github.advertisement_website.exception.AdNotFoundException;
+import com.github.advertisement_website.exception.BadRequestException;
 import com.github.advertisement_website.repositories.AdBoardRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,10 +27,20 @@ public class AdBoardService {
     @Transactional
     public void addAd(AdBoardEntity adBoardEntity) {
         adBoardRepository.save(adBoardEntity);
+        Boolean existsEmail = adBoardRepository
+                .selectExistsAd(adBoardEntity.getAdId());
+        if (existsEmail) {
+            throw new BadRequestException(
+                    "adId " + adBoardEntity.getAdId() + " already created");
+        }
     }
 
 
     public void deleteByAdId(UUID adId) {
+        if(!adBoardRepository.existsByAdId(adId)) {
+            throw new AdNotFoundException(
+                    "Ad with id " + adId + " does not exists");
+        }
         adBoardRepository.deleteByAdId(adId);
     }
 

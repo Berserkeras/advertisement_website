@@ -19,4 +19,13 @@ public interface AdBoardRepository extends JpaRepository<AdBoardEntity, Long> {
     @Query("DELETE FROM AdBoardEntity a WHERE a.createTime < :twoWeeksAgo")
     void deleteAdsOlderThan(LocalDateTime twoWeeksAgo);
 
+    @Query("" +
+            "SELECT CASE WHEN COUNT(s) > 0 THEN " +
+            "TRUE ELSE FALSE END " +
+            "FROM AdBoardEntity s " +
+            "WHERE s.adId = ?1"
+    )
+    Boolean selectExistsAd(UUID adId);
+
+    boolean existsByAdId(UUID adId);
 }
