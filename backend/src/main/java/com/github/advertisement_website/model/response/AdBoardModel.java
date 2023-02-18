@@ -1,6 +1,8 @@
 package com.github.advertisement_website.model.response;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 
 public class AdBoardModel implements Serializable  {
     private String id;
@@ -8,8 +10,8 @@ public class AdBoardModel implements Serializable  {
     private String description;
     private String city;
     private String contactData;
-    private String price;
-    private String viewCount;
+    private BigDecimal price;
+    private BigInteger viewCount;
 
     public String getId() {
         return id;
@@ -51,19 +53,19 @@ public class AdBoardModel implements Serializable  {
         this.contactData = authorName;
     }
 
-    public String getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
-    public String getViewCount() {
+    public BigInteger getViewCount() {
         return viewCount;
     }
 
-    public void setViewCount(String viewCount) {
+    public void setViewCount(BigInteger viewCount) {
         this.viewCount = viewCount;
     }
 }
