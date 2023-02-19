@@ -28,7 +28,7 @@ public class AdBoardService {
     public void addAd(AdBoardEntity adBoardEntity) {
         adBoardRepository.save(adBoardEntity);
         Boolean existsEmail = adBoardRepository
-                .selectExistsAd(adBoardEntity.getAdId());
+                .existsByAdId(adBoardEntity.getAdId());
         if (existsEmail) {
             throw new BadRequestException(
                     "adId " + adBoardEntity.getAdId() + " already created");
@@ -36,12 +36,13 @@ public class AdBoardService {
     }
 
 
+    @Transactional
     public void deleteByAdId(UUID adId) {
         if(!adBoardRepository.existsByAdId(adId)) {
             throw new AdNotFoundException(
-                    "Ad with id " + adId + " does not exists");
+                    "Ad with id " + adId + " does not exists, result:" + adBoardRepository.existsByAdId(adId));
         }
-        adBoardRepository.deleteByAdId(adId);
+        adBoardRepository.deleteAdBoardEntityByAdId(adId);
     }
 
 

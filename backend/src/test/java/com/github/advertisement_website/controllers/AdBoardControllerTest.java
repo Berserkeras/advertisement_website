@@ -8,15 +8,12 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.advertisement_website.controllers.AdBoardController;
 import com.github.advertisement_website.dto.AdBoardDto;
 import com.github.advertisement_website.entity.AdBoardEntity;
 import com.github.advertisement_website.model.response.AdBoardModel;
-import com.github.advertisement_website.model.response.DeleteAdBoardResponse;
 import com.github.advertisement_website.response.adboard.AdCategory;
 import com.github.advertisement_website.services.AdBoardService;
 import com.github.advertisement_website.repositories.AdBoardRepository;
@@ -36,7 +33,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
 @WebMvcTest(AdBoardController.class)
 @AutoConfigureMockMvc

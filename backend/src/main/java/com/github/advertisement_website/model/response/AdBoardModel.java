@@ -3,6 +3,7 @@ package com.github.advertisement_website.model.response;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.UUID;
 
 public class AdBoardModel implements Serializable  {
     private String id;
@@ -12,6 +13,7 @@ public class AdBoardModel implements Serializable  {
     private String contactData;
     private BigDecimal price;
     private BigInteger viewCount;
+    private UUID adId;
 
     public String getId() {
         return id;
@@ -67,5 +69,13 @@ public class AdBoardModel implements Serializable  {
 
     public void setViewCount(BigInteger viewCount) {
         this.viewCount = viewCount;
+    }
+
+    public UUID getAdId() {
+        return adId;
+    }
+
+    public void setAdId(UUID adId) {
+        this.adId = adId;
     }
 }
