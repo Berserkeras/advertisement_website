@@ -6,8 +6,6 @@ import com.github.advertisement_website.model.response.AdBoardModel;
 import com.github.advertisement_website.model.response.DeleteAdBoardResponse;
 import com.github.advertisement_website.model.response.MessageType;
 import com.github.advertisement_website.services.AdBoardService;
-import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -39,6 +37,7 @@ public class AdBoardController {
     }
 
     @DeleteMapping("/{adId}")
+    @CrossOrigin
     public DeleteAdBoardResponse deleteBoardAdId(@PathVariable UUID adId) {
         adBoardService.deleteByAdId(adId);
         return new DeleteAdBoardResponse(MessageType.SUCCESS, "Ad deleted successfully");
