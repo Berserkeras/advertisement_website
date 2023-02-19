@@ -18,7 +18,6 @@ public class AdBoardDto implements Serializable {
 
     public AdBoardModel toModel() {
         AdBoardModel adBoardModel = new AdBoardModel();
-        adBoardModel.setId(String.valueOf(adBoardEntity.getId()));
         adBoardModel.setTitle(adBoardEntity.getTitle());
         adBoardModel.setDescription(adBoardEntity.getDescription());
         adBoardModel.setCity(adBoardEntity.getCity());

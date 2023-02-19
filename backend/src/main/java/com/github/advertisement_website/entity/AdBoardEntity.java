@@ -27,7 +27,7 @@ public class AdBoardEntity extends AbstractTimeStampEntity {
     )
     @GeneratedValue(
             generator = "adboard_sequence",
-            strategy = GenerationType.SEQUENCE)
+            strategy = GenerationType.AUTO)
     private Long id;
     private String title;
 

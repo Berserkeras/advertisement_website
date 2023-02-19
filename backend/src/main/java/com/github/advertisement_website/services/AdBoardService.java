@@ -24,15 +24,14 @@ public class AdBoardService {
         return adBoardRepository.findAll();
     }
 
-    @Transactional
     public void addAd(AdBoardEntity adBoardEntity) {
-        adBoardRepository.save(adBoardEntity);
-        Boolean existsEmail = adBoardRepository
+        Boolean existsAdId = adBoardRepository
                 .existsByAdId(adBoardEntity.getAdId());
-        if (existsEmail) {
+        if (existsAdId) {
             throw new BadRequestException(
                     "adId " + adBoardEntity.getAdId() + " already created");
         }
+        adBoardRepository.save(adBoardEntity);
     }
 
 

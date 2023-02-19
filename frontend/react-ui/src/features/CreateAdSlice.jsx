@@ -12,7 +12,7 @@ export const createAd = createAsyncThunk(
     'posts/getPosts',
     async ({ title, description, price, category, city, image }, thunkAPI) => {
         try {
-            const ad_user_id = uuid(); // generate a new UUID
+            const adId = uuid(); // generate a new UUID
             const resp = await customFetch.post('api/v1/ad-board', {
                 title,
                 description,
@@ -20,7 +20,7 @@ export const createAd = createAsyncThunk(
                 category,
                 city,
                 image,
-                ad_user_id
+                adId
             })
             const { config: { data } } = resp
             return JSON.parse(data)
@@ -41,13 +41,13 @@ const createAdSlice = createSlice({
                 state.isLoading = true
             })
             .addCase(createAd.fulfilled, (state, { payload }) => {
-                const { title, description, price, category, ad_user_id } = payload
+                const { title, description, price, category, adId } = payload
                 console.log("typeof !" + typeof payload)
-                console.log("prop!" + ad_user_id)
+                console.log("prop!" + adId)
                 console.log('Ad info ' + JSON.stringify({ title, description, price, category }))
                 state.isLoading = false
                 state.ad = { title, description, price, category }
-                state.create = ad_user_id
+                state.create = adId
                 toast.success(`Ad created for ${title}.`)
             })
             .addCase(createAd.rejected, (state, { payload }) => {
