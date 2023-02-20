@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Input = styled.input`
@@ -41,13 +41,34 @@ const CopyButton = styled.button`
   }
 `;
 
+const BackButton = styled.button`
+  margin-top: 16px;
+  background-color: #ccc;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+
+  &:hover {
+    background-color: #999;
+  }
+`;
+
 const AdIdPage = () => {
     const { state } = useLocation();
     const uuidRef = useRef(null);
+    const history = useNavigate();
 
     const handleCopyClick = () => {
         uuidRef.current.select();
         document.execCommand('copy');
+    };
+
+    const handleBackClick = () => {
+        history('/');
+        window.location.reload();
     };
 
     return (
@@ -56,6 +77,7 @@ const AdIdPage = () => {
                 <h1>Ad ID, please save and use it to update or delete your ad:</h1>
                 <Input type="text" value={state.create} readOnly ref={uuidRef} />
                 <CopyButton onClick={handleCopyClick}>Copy to Clipboard</CopyButton>
+                <BackButton onClick={handleBackClick}>Back to Landing Page</BackButton>
             </Box>
         </Container>
     );
