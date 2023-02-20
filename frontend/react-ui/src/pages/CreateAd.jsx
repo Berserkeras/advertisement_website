@@ -64,7 +64,7 @@ const CreateAd = () => {
         if (create?.length) {
             setTimeout(() => {
                 console.log("show UUID:", create);
-                navigate(`/ad-id/${create}`);
+                navigate(`/ad-id/${create}`, { state: { create } });
             }, 2000);
         }
     }, [create, navigate]);
