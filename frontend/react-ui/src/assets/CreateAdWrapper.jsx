@@ -1,31 +1,22 @@
 import styled from "styled-components";
 
-const Wrapper = styled.main` {
-
-  display: grid;
+const CreateAdWrapper = styled.main`
+  display: flex;
   align-items: center;
-  .full-register-page {
-    min-height: 100vh;
-  }
-
-
+  justify-content: center;
+  height: 100vh;
   .form-row {
     margin-bottom: 0;
   }
-  
   .form-label {
-    display: block;
+    display: flex;
     font-size: 0.875rem;
-    margin-bottom: 7px;
+    margin-bottom: 17px;
     text-transform: capitalize;
     letter-spacing: 1px;
   }
-
-  .full-register-page {
-    min-height: 100vh;
-  }
   .logo-register {
-    display: block;
+    display: flex;
     max-width: 120px;
     margin: 20px auto 140px;
   }
@@ -37,11 +28,11 @@ const Wrapper = styled.main` {
     border-radius: 0.25rem;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     padding-inline: 40px;
+    padding-top: 35px;
     padding-bottom: 35px;
     margin: 0 auto;
     transition: 0.3s ease-in-out all;
   }
-
   .form-input {
     width: 100%;
     padding: 12px 10px;
@@ -50,7 +41,6 @@ const Wrapper = styled.main` {
     border: 1px solid #bcccdc;
     margin-bottom: 15px;
   }
-
   .btn-register,
   input[type="submit"] {
     width: 100%;
@@ -65,25 +55,17 @@ const Wrapper = styled.main` {
     font-family: "Montserrat", sans-serif;
     font-weight: 400;
     letter-spacing: 3px;
-    -webkit-transition: all 0.4s ease-in-out;
-    -moz-transition: all 0.4s ease-in-out;
-    -ms-transition: all 0.4s ease-in-out;
-    -o-transition: all 0.4s ease-in-out;
     transition: all 0.4s ease-in-out;
   }
   .btn-register {
     border: solid 2px #fff;
     background-color: black;
-    color: #fff !important;
+    color: #fff;
   }
   .btn-register:hover {
     border: solid 2px #fff;
-    transition: opacity 0.2s;
     opacity: 0.7;
-    color: white !important;
-  }
-  .btn-register:hover {
-    color: #fff;
+    color: white;
   }
   .btn-choose-register {
     background: transparent;
@@ -95,6 +77,6 @@ const Wrapper = styled.main` {
     font-size: 15px;
     font-weight: 400;
   }
-  }
 `;
-export default Wrapper;
+
+export default CreateAdWrapper;
