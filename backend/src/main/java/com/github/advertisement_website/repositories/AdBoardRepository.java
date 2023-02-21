@@ -34,6 +34,7 @@ public interface AdBoardRepository extends JpaRepository<AdBoardEntity, Long> {
 
     Boolean existsByAdId(UUID adId);
 
-
+    @Transactional
+    AdBoardEntity getAdBoardEntityByAdId(@Param( "adId") UUID adId);
 
 }

@@ -1,14 +1,15 @@
 package com.github.advertisement_website.services;
 
+import com.github.advertisement_website.dto.AdBoardDto;
 import com.github.advertisement_website.entity.AdBoardEntity;
 import com.github.advertisement_website.exception.AdNotFoundException;
 import com.github.advertisement_website.exception.BadRequestException;
+import com.github.advertisement_website.model.response.AdBoardModel;
 import com.github.advertisement_website.repositories.AdBoardRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -45,7 +46,11 @@ public class AdBoardService {
     }
 
 
-    public Optional<AdBoardEntity> getItemById(Long id) {
-        return adBoardRepository.findById(id);
+    public AdBoardModel getItemByAdId(UUID adId) {
+        AdBoardEntity adBoardEntity = adBoardRepository.getAdBoardEntityByAdId(adId);
+        if (adBoardEntity == null) {
+            throw new AdNotFoundException("Ad with id " + adId + " not found");
+        }
+        return new AdBoardDto(adBoardEntity).toModel();
     }
 }

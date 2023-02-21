@@ -42,4 +42,12 @@ public class AdBoardController {
         adBoardService.deleteByAdId(adId);
         return new DeleteAdBoardResponse(MessageType.SUCCESS, "Ad deleted successfully");
     }
+
+    @GetMapping("/get-ad/{adId}")
+    @CrossOrigin(origins = {"http://localhost:3000"})
+    public AdBoardModel  getItemById(@PathVariable("adId") UUID adId) {
+        AdBoardModel a = adBoardService.getItemByAdId(adId);
+        System.out.println("RETURN VAL: " + a);
+        return a;
+    }
 }
