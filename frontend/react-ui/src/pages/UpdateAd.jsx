@@ -2,9 +2,7 @@ import { useEffect, useState } from "react";
 import CreateAdWrapper from "../assets/CreateAdWrapper";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
-import {useLocation, useNavigate} from "react-router-dom";
 import { updateAd } from "../features/UpdateAdSlice";
-import FormDeleteAd from "../components/FormDeleteAd";
 import FormUpdateAd from "../components/FormUpdateAd";
 
 const initialState = {
@@ -14,10 +12,8 @@ const initialState = {
 
 const UpdateAd = () => {
     const [values, setValues] = useState(initialState);
-    const { create, isLoading, ad } = useSelector((store) => store.update);
+    const { update, isLoading, ad } = useSelector((store) => store.update);
     const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const location = useLocation();
 
     const handleChange = (event) => {
         const name = event.target.name;
@@ -39,12 +35,6 @@ const UpdateAd = () => {
     };
 
     useEffect(() => {
-        if (location.state && location.state.ad) {
-            setValues({ ...values, title: location.state.ad.title });
-        }
-    }, [location, values]);
-
-    useEffect(() => {
         if (ad.title) {
             setValues({ ...values, title: ad.title });
         }
@@ -53,14 +43,14 @@ const UpdateAd = () => {
     return (
         <CreateAdWrapper className="full-register-page">
             <form className="form-register" onSubmit={onSubmit}>
-                <FormDeleteAd
+                <FormUpdateAd
                     type="adId"
                     name="adId"
                     labelText="adId"
                     value={values.adId}
                     handleChange={handleChange}
                 />
-                <FormDeleteAd
+                <FormUpdateAd
                     type="title"
                     name="title"
                     labelText="title"

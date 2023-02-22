@@ -7,7 +7,6 @@ const FormCreateAd = ({ type, name, value, handleChange, labelText, placeholder 
                 {labelText || name}
             </label>
             <input
-
                 type={type}
                 value={value }
                 name={name}
