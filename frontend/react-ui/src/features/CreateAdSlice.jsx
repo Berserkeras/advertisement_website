@@ -42,8 +42,6 @@ const createAdSlice = createSlice({
             })
             .addCase(createAd.fulfilled, (state, { payload }) => {
                 const { title, description, price, category, adId } = payload
-                console.log("typeof !" + typeof payload)
-                console.log("prop!" + adId)
                 console.log('Ad info ' + JSON.stringify({ title, description, price, category }))
                 state.isLoading = false
                 state.ad = { title, description, price, category }
