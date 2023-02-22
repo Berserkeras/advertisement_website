@@ -1,9 +1,10 @@
-import {createAsyncThunk, createSlice} from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import {toast} from 'react-toastify'
 import customFetch from "../features/Axios";
 
 const initialState = {
     isLoading: false,
+    ad: { title: "", description: "", price: "", category: "", adId: "" }
 }
 
 export const updateAd = createAsyncThunk(
@@ -27,36 +28,31 @@ export const updateAd = createAsyncThunk(
 );
 
 
-
 const updateAdSlice = createSlice({
-    name: 'update',
-    initialState,
+    name: "update",
+    initialState: {
+        isLoading: false,
+        ad: { title: "", description: "", price: "", category: "", adId: "" }
+    },
     reducers: {},
     extraReducers: (builder) => {
         builder
             .addCase(updateAd.pending, (state) => {
-                console.log("555")
-                state.isLoading = true
+                state.isLoading = true;
             })
             .addCase(updateAd.fulfilled, (state, { payload }) => {
-                console.log("updateAd.fulfilled was called with payload: ", payload);
-                // const { title, description, price, category } = payload
-                // state.ad = { title, description, price, category }
-                // console.log("updateInfo")
-                // console.log(title)
-                // console.log(description)
-                toast.success("asd")
+                const { title, description, price, category, adId } = payload.updatedData;
+                state.isLoading = false;
+                state.ad = { title, description, price, category, adId };
+                toast.success("Ad updated successfully");
             })
-            .addCase(updateAd.rejected, (state, { payload }) => {
-                console.log("1231")
-                state.isLoading = false
-                toast.error(payload)
+            .addCase(updateAd.rejected, (state) => {
+                state.isLoading = false;
+                toast.error("Failed to update ad");
             })
             .addDefaultCase((state, action) => {
                 console.log(`Unhandled action type: ${action.type}`);
             });
-
-    }
-})
-
+    },
+});
 export default updateAdSlice.reducer
