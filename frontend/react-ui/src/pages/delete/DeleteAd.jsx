@@ -1,10 +1,10 @@
 import {useEffect, useState} from 'react'
-import CreateAdWrapper from '../assets/CreateAdWrapper'
+import CreateAdWrapper from '../../assets/CreateAdWrapper'
 import { toast } from 'react-toastify'
 import { useDispatch, useSelector } from 'react-redux'
 import {useNavigate} from "react-router-dom";
-import {deleteAd} from "../features/DeleteAdSlice";
-import FormDeleteAd from "../components/FormDeleteAd";
+import {deleteAd} from "../../features/slices/DeleteAdSlice";
+import FormDeleteAd from "../../components/FormDeleteAd";
 
 const initialState = {
     adId: "",

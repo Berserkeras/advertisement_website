@@ -2,9 +2,10 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { createAd } from '../features/CreateAdSlice';
-import FormCreateAd from '../components/FormCreateAd';
-import CreateAdWrapper from '../assets/CreateAdWrapper';
+import { createAd } from '../../features/slices/CreateAdSlice';
+import FormCreateAd from '../../components/FormCreateAd';
+import CreateAdWrapper from '../../assets/CreateAdWrapper';
+import { handleImageChange } from "../../features/ImageHandler";
 
 const initialState = {
     title: '',
@@ -24,22 +25,6 @@ const CreateAd = () => {
     const handleChange = (event) => {
         const { name, value } = event.target;
         setValues((prev) => ({ ...prev, [name]: value }));
-    };
-
-    const handleImageChange = (event) => {
-        const file = event.target.files[0];
-        const reader = new FileReader();
-        const image = event.target.name;
-
-        reader.onload = () => {
-            const imageData = reader.result.split(',')[1];
-            const isPng = file.type === 'image/png';
-            isPng
-                ? setValues((prev) => ({ ...prev, [image]: imageData }))
-                : toast.error('Wrong image format. Please upload a PNG file.');
-        };
-
-        reader.readAsDataURL(file);
     };
 
     const onSubmit = (e) => {
@@ -79,7 +64,7 @@ const CreateAd = () => {
                 <FormCreateAd type="file" name="image" labelText="image" handleChange={handleImageChange} />
                 <button type="submit" className="btn-register" disabled={isLoading}>
                     {isLoading ? 'Loading...' : 'Create'}
-                </button>
+                </button>`
             </form>
             <button className="btn-choose-register" onClick={() => navigate('/')}>
                 Back to Landing Page
