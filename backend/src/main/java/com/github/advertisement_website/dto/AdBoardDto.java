@@ -3,7 +3,7 @@ package com.github.advertisement_website.dto;
 
 
 import com.github.advertisement_website.entity.AdBoardEntity;
-import com.github.advertisement_website.model.response.AdBoardModel;
+import com.github.advertisement_website.model.AdBoardModel;
 
 import java.io.Serializable;
 

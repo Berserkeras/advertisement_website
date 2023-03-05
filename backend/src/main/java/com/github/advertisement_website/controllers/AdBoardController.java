@@ -2,9 +2,9 @@ package com.github.advertisement_website.controllers;
 
 import com.github.advertisement_website.dto.AdBoardDto;
 import com.github.advertisement_website.entity.AdBoardEntity;
-import com.github.advertisement_website.model.response.AdBoardModel;
-import com.github.advertisement_website.model.response.DeleteAdBoardResponse;
-import com.github.advertisement_website.model.response.MessageType;
+import com.github.advertisement_website.model.AdBoardModel;
+import com.github.advertisement_website.response.DeleteAdBoardResponse;
+import com.github.advertisement_website.response.MessageType;
 import com.github.advertisement_website.response.AdBoardUpdateRequest;
 import com.github.advertisement_website.services.AdBoardService;
 import org.springframework.web.bind.annotation.*;
@@ -56,7 +56,7 @@ public class AdBoardController {
 
     @PutMapping("/update-ad/{adId}")
     @CrossOrigin(origins = {"http://localhost:3000"})
-    public void updateCustomer(
+    public void updateAd(
             @PathVariable("adId") UUID adId,
             @RequestBody AdBoardUpdateRequest updateRequest) throws Exception {
         System.out.println("Put Update Request UUID!: " + adId);
