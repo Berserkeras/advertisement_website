@@ -13,8 +13,8 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.advertisement_website.dto.AdBoardDto;
 import com.github.advertisement_website.entity.AdBoardEntity;
-import com.github.advertisement_website.model.response.AdBoardModel;
-import com.github.advertisement_website.response.adboard.AdCategory;
+import com.github.advertisement_website.model.AdBoardModel;
+import com.github.advertisement_website.response.AdCategory;
 import com.github.advertisement_website.services.AdBoardService;
 import com.github.advertisement_website.repositories.AdBoardRepository;
 
@@ -93,7 +93,7 @@ public class AdBoardControllerTest {
                 .andReturn();
 
         String responseJson = result.getResponse().getContentAsString();
-        List<AdBoardModel> responseModels = objectMapper.readValue(responseJson, new TypeReference<List<AdBoardModel>>() {
+        List<AdBoardModel> responseModels = objectMapper.readValue(responseJson, new TypeReference<>() {
         });
 
         assertThat(responseModels.size()).isEqualTo(2);

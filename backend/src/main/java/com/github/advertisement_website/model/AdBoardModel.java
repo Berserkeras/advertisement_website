@@ -1,4 +1,4 @@
-package com.github.advertisement_website.model.response;
+package com.github.advertisement_website.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;

@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.UUID;
 
 @Repository("adBoardRepository")
@@ -20,7 +21,7 @@ public interface AdBoardRepository extends JpaRepository<AdBoardEntity, Long> {
     @Transactional
     @Modifying
     @Query("DELETE FROM AdBoardEntity a WHERE a.adId = :adId")
-    int deleteAdBoardEntityByAdId(@Param("adId") UUID adId);
+    void deleteAdBoardEntityByAdId(@Param("adId") UUID adId);
     @Transactional
     @Modifying
     @Query("DELETE FROM AdBoardEntity a WHERE a.createTime < :twoWeeksAgo")
@@ -32,13 +33,12 @@ public interface AdBoardRepository extends JpaRepository<AdBoardEntity, Long> {
             "FROM AdBoardEntity a " +
             "WHERE a.adId = ?1"
     )
-
     Boolean existsByAdId(UUID adId);
 
     Boolean existsByContactData(String contactData);
 
     @Transactional
-    AdBoardEntity getAdBoardEntityByAdId(@Param( "adId") UUID adId);
+    Optional<AdBoardEntity> getAdBoardEntityByAdId(@Param( "adId") UUID adId);
 
     @Transactional
     @Modifying

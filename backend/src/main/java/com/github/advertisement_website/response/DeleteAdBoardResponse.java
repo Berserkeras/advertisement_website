@@ -1,6 +1,4 @@
-package com.github.advertisement_website.model.response;
-
-import java.awt.*;
+package com.github.advertisement_website.response;
 
 public class DeleteAdBoardResponse {
 

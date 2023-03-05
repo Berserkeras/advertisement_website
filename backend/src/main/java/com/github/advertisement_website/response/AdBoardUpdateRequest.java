@@ -8,7 +8,6 @@ public record AdBoardUpdateRequest(
     String city,
     String contact_data,
     String description,
-
     BigDecimal price
 ) {
 }

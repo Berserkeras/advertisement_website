@@ -1,6 +1,6 @@
 package com.github.advertisement_website.entity;
 
-import com.github.advertisement_website.response.adboard.AdCategory;
+import com.github.advertisement_website.response.AdCategory;
 import jakarta.persistence.*;
 import lombok.*;
 
