@@ -1,13 +1,13 @@
 import React from 'react'
-import CreateAd from './pages/CreateAd'
+import CreateAd from './pages/create/CreateAd'
 import Landing from "./pages/Landing";
 import Error from './pages/ErrorPage'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import DeleteAd from "./pages/DeleteAd";
-import AdIdPage from "./pages/AdIdPage";
-import UpdateAd from "./pages/UpdateAd";
+import DeleteAd from "./pages/delete/DeleteAd";
+import AdIdPage from "./pages/create/AdIdPage";
+import UpdateAd from "./pages/update/UpdateAd";
 
 function App () {
     return (

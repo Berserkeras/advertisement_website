@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { toast } from 'react-toastify'
-import customFetch from "../features/Axios";
+import customFetch from "../Axios";
 
 const initialState = {
     isLoading: false,

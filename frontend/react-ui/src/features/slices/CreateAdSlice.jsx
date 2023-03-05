@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import customFetch from '../features/Axios'
+import customFetch from '../Axios'
 import { toast } from 'react-toastify'
 import {v4 as uuid } from "uuid";
 
