@@ -1,16 +1,16 @@
-import { useEffect, useState } from "react";
-import CreateAdWrapper from "../../assets/CreateAdWrapper";
+import { useState } from "react";
+import AdFormWrapper from "../../assets/AdFormWrapper";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import {requestAd, updateAd} from "../../features/slices/UpdateAdSlice";
-import FormUpdateAd from "../../components/FormUpdateAd";
+import AdForm from "../../components/AdForm";
 import { handleImageChange } from "../../features/ImageHandler";
 
 const initialState = {
     adId: "",
     title: "",
     description: "",
-    price: 0.0,
+    price: null,
     city: "",
     category: "",
     image: null,
@@ -18,9 +18,10 @@ const initialState = {
 
 const UpdateAd = () => {
     const [values, setValues] = useState(initialState);
-    const { update, isLoading, ad } = useSelector((store) => store.update);
+    const { ad, isLoading } = useSelector((store) => store.update);
     const dispatch = useDispatch();
     const { title } = ad;
+    console.log("titleAd: " + title)
     const buttonName = title ? "Update" : "Request";
 
 
@@ -40,36 +41,34 @@ const UpdateAd = () => {
         }
 
         if (buttonName === "Update") {
-            dispatch(updateAd({ adId, updatedData: values }));
+            const updatedData = Object.fromEntries(Object.entries(values).filter(([_, value]) => value !== null));
+            dispatch(updateAd({ adId, updatedData }));
         } else {
             dispatch(requestAd({ adId }));
         }
     };
 
     return (
-        <CreateAdWrapper className="full-register-page">
+        <AdFormWrapper className="full-register-page">
             <form className="form-register" onSubmit={onSubmit}>
                 {title ? (
                     <>
                         {[
                             { type: "title", name: "title", labelText: "title" },
-                            {
-                                type: "description",
-                                name: "description",
-                                labelText: "description",
-                            },
+                            { type: "description", name: "description", labelText: "description" },
                             { type: "price", name: "price", labelText: "price" },
                             { type: "city", name: "city", labelText: "city" },
                             { type: "category", name: "category", labelText: "category" },
                         ].map((input) => (
-                            <FormUpdateAd
-                                key={input.name}
-                                {...input}
-                                value={ad[input.name]}
-                                handleChange={handleChange}
+                            <AdForm key={input.name}
+                                    {...input}
+                                    value={values[input.name]}
+                                    handleChange={handleChange}
+                                    placeholder={ad[input.name]}
+
                             />
                         ))}
-                        <FormUpdateAd
+                        <AdForm
                             type="file"
                             name="image"
                             labelText="image"
@@ -77,7 +76,7 @@ const UpdateAd = () => {
                         />
                     </>
                 ) : (
-                    <FormUpdateAd
+                    <AdForm
                         type="adId"
                         name="adId"
                         labelText="adId"
@@ -90,7 +89,7 @@ const UpdateAd = () => {
                     {isLoading ? "Loading..." : buttonName}
                 </button>
             </form>
-        </CreateAdWrapper>
+        </AdFormWrapper>
     );
 };
 
