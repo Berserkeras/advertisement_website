@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types'
 
-
 const FormUpdateAd = ({ type, name, value, handleChange, labelText, placeholder }) => {
     return (
         <div className="form-row">

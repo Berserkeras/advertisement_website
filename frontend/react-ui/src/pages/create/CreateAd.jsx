@@ -19,6 +19,7 @@ const initialState = {
 const CreateAd = () => {
     const [values, setValues] = useState(initialState);
     const { create, isLoading } = useSelector((store) => store.create);
+
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -41,12 +42,10 @@ const CreateAd = () => {
     };
 
     useEffect(() => {
-        if (create?.length) {
             setTimeout(() => {
                 console.log('show UUID:', create);
                 navigate(`/ad-id/${create}`, { state: { create }, replace: true });
-            }, 2000);
-        }
+            }, 500);
     }, [create, navigate]);
 
     return (

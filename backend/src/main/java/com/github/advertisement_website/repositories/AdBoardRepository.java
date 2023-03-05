@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -34,7 +35,18 @@ public interface AdBoardRepository extends JpaRepository<AdBoardEntity, Long> {
 
     Boolean existsByAdId(UUID adId);
 
+    Boolean existsByContactData(String contactData);
+
     @Transactional
     AdBoardEntity getAdBoardEntityByAdId(@Param( "adId") UUID adId);
+
+    @Transactional
+    @Modifying
+    @Query("update AdBoardEntity a set a.title = :title, a.price = :price, a.contactData = :contact_data where a.adId = :adId")
+    void updateAd(@Param("adId") UUID adId,
+                  @Param("title") String title,
+                  @Param("price") BigDecimal price,
+                  @Param("contact_data") String contactData
+    );
 
 }

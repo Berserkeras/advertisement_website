@@ -5,6 +5,7 @@ import com.github.advertisement_website.entity.AdBoardEntity;
 import com.github.advertisement_website.model.response.AdBoardModel;
 import com.github.advertisement_website.model.response.DeleteAdBoardResponse;
 import com.github.advertisement_website.model.response.MessageType;
+import com.github.advertisement_website.response.AdBoardUpdateRequest;
 import com.github.advertisement_website.services.AdBoardService;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,6 +40,7 @@ public class AdBoardController {
     @DeleteMapping("/{adId}")
     @CrossOrigin
     public DeleteAdBoardResponse deleteBoardAdId(@PathVariable UUID adId) {
+
         adBoardService.deleteByAdId(adId);
         return new DeleteAdBoardResponse(MessageType.SUCCESS, "Ad deleted successfully");
     }
@@ -46,8 +48,20 @@ public class AdBoardController {
     @GetMapping("/get-ad/{adId}")
     @CrossOrigin(origins = {"http://localhost:3000"})
     public AdBoardModel  getItemById(@PathVariable("adId") UUID adId) {
+        System.out.println("Get Request! UUID: " + adId);
         AdBoardModel a = adBoardService.getItemByAdId(adId);
         System.out.println("RETURN VAL: " + a);
         return a;
     }
+
+    @PutMapping("/update-ad/{adId}")
+    @CrossOrigin(origins = {"http://localhost:3000"})
+    public void updateCustomer(
+            @PathVariable("adId") UUID adId,
+            @RequestBody AdBoardUpdateRequest updateRequest) throws Exception {
+        System.out.println("Put Update Request UUID!: " + adId);
+        System.out.println("Put Update Request!: " + updateRequest);
+        adBoardService.updateAd(adId, updateRequest);
+    }
+
 }
