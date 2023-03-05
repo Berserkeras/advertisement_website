@@ -2,9 +2,17 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 import customFetch from "../Axios";
 
-const initialState = {
+export const initialState = {
     isLoading: false,
-    ad: { title: "", description: "", price: "", category: "", adId: "" },
+    ad: {
+        title: "",
+        description: "",
+        price: "",
+        city: "",
+        category: "",
+        adId: "",
+        image: null,
+    },
 };
 
 export const requestAd = createAsyncThunk(
@@ -29,25 +37,9 @@ export const updateAd = createAsyncThunk(
     "update",
     async ({ adId, updatedData }, thunkAPI) => {
         try {
-            const resp = await customFetch.post(`api/v1/ad-board/${adId}`, updatedData);
-            const adData = resp.data;
-
-            let updatedAdData;
-            let method;
-            if (adData.title) {
-                // If ad exists, update its data
-                updatedAdData = {
-                    ...adData,
-                    ...updatedData,
-                };
-                method = "post";
-            } else {
-                console.log("else")
-            }
-
-
-
-            return { adId, updatedData: updatedAdData };
+            const resp = await customFetch.put(`api/v1/ad-board/update-ad/${adId}`, updatedData);
+            console.log("updateAd response: " +  resp.status)
+            return { adId, updatedData:  resp.status };
         } catch (error) {
             return thunkAPI.rejectWithValue(error.response.data);
         }

@@ -1,10 +1,9 @@
-import {useEffect, useState} from 'react'
-import CreateAdWrapper from '../../assets/CreateAdWrapper'
+import { useState} from 'react'
+import AdFormWrapper from '../../assets/AdFormWrapper'
 import { toast } from 'react-toastify'
 import { useDispatch, useSelector } from 'react-redux'
-import {useNavigate} from "react-router-dom";
 import {deleteAd} from "../../features/slices/DeleteAdSlice";
-import FormDeleteAd from "../../components/FormDeleteAd";
+import AdForm from "../../components/AdForm";
 
 const initialState = {
     adId: "",
@@ -12,7 +11,7 @@ const initialState = {
 
 const DeleteAd = () => {
     const [values, setValues] = useState(initialState)
-    const { create, isLoading  } = useSelector((store) => store.create)
+    const { isLoading  } = useSelector((store) => store.create)
     const dispatch = useDispatch()
     const handleChange = (event) => {
         const name = event.target.name;
@@ -36,9 +35,9 @@ const DeleteAd = () => {
     }
 
     return (
-        <CreateAdWrapper className="full-register-page">
+        <AdFormWrapper className="full-register-page">
             <form className="form-register" onSubmit={onSubmit}>
-                <FormDeleteAd
+                <AdForm
                     type="adId"
                     name="adId"
                     labelText="adId"
@@ -49,7 +48,7 @@ const DeleteAd = () => {
                     {isLoading ? 'Loading...' : 'Delete' }
                 </button>
             </form>
-        </CreateAdWrapper>
+        </AdFormWrapper>
     )
 }
 

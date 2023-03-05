@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { createAd } from '../../features/slices/CreateAdSlice';
-import FormCreateAd from '../../components/FormCreateAd';
-import CreateAdWrapper from '../../assets/CreateAdWrapper';
+import AdForm from '../../components/AdForm';
+import AdFormWrapper from '../../assets/AdFormWrapper';
 import { handleImageChange } from "../../features/ImageHandler";
 
 const initialState = {
@@ -49,7 +49,7 @@ const CreateAd = () => {
     }, [create, navigate]);
 
     return (
-        <CreateAdWrapper className="full-register-page">
+        <AdFormWrapper className="full-register-page">
             <form className="form-register" onSubmit={onSubmit}>
                 {[
                     { type: 'title', name: 'title', labelText: 'title' },
@@ -58,9 +58,9 @@ const CreateAd = () => {
                     { type: 'city', name: 'city', labelText: 'city' },
                     { type: 'category', name: 'category', labelText: 'category' },
                 ].map((input) => (
-                    <FormCreateAd key={input.name} {...input} value={values[input.name]} handleChange={handleChange} />
+                    <AdForm key={input.name} {...input} value={values[input.name]} handleChange={handleChange} />
                 ))}
-                <FormCreateAd type="file" name="image" labelText="image" handleChange={handleImageChange} />
+                <AdForm type="file" name="image" labelText="image" handleChange={handleImageChange} />
                 <button type="submit" className="btn-register" disabled={isLoading}>
                     {isLoading ? 'Loading...' : 'Create'}
                 </button>`
@@ -68,7 +68,7 @@ const CreateAd = () => {
             <button className="btn-choose-register" onClick={() => navigate('/')}>
                 Back to Landing Page
             </button>
-        </CreateAdWrapper>
+        </AdFormWrapper>
     );
 };
 

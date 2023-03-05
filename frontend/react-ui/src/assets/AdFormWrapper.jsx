@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const CreateAdWrapper = styled.main`
+const AdFormWrapper = styled.main`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -79,4 +79,4 @@ const CreateAdWrapper = styled.main`
   }
 `;
 
-export default CreateAdWrapper;
+export default AdFormWrapper;
