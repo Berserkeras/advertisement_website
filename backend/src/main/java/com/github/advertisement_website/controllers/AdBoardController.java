@@ -53,7 +53,7 @@ public class AdBoardController {
             throw new AdNotFoundException(HttpStatus.NOT_FOUND, "Ad not found for deletion");
         }
         adBoardService.deleteByAdId(adId);
-        return new DeleteAdBoardResponse(HttpStatus.OK, "Ad deleted successfully");
+        return new DeleteAdBoardResponse("Ad deleted successfully");
     }
 
     @GetMapping("/get-ad/{adId}")
