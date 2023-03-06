@@ -31,6 +31,7 @@ public class AdBoardController {
     }
 
     @GetMapping
+    @CrossOrigin
     public List<AdBoardModel> getAllBoardAds() {
         return adBoardService.getAllBoardAds().stream()
                 .map(adBoard -> new AdBoardDto(adBoard).toModel())
