@@ -7,11 +7,11 @@ import com.github.advertisement_website.exception.BadRequestException;
 import com.github.advertisement_website.model.AdBoardModel;
 import com.github.advertisement_website.repositories.AdBoardRepository;
 import com.github.advertisement_website.response.AdBoardUpdateRequest;
+import com.github.advertisement_website.exception.ContactDataAlreadyExistsException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -37,47 +37,50 @@ public class AdBoardService {
 
     public void deleteByAdId(UUID adId) {
         if (!adBoardRepository.existsByAdId(adId)) {
-            throw new AdNotFoundException(
-                    "Ad with id " + adId + " does not exist");
+            throw new AdNotFoundException("Ad with id " + adId + " does not exist for deletion");
         }
         adBoardRepository.deleteAdBoardEntityByAdId(adId);
     }
 
     public AdBoardModel getItemByAdId(UUID adId) {
-        Optional<AdBoardEntity> adBoardEntityOptional = adBoardRepository.getAdBoardEntityByAdId(adId);
-        AdBoardEntity adBoardEntity = adBoardEntityOptional
-                .orElseThrow(() -> new AdNotFoundException("Ad with id " + adId + " not found"));
+        AdBoardEntity adBoardEntity = adBoardRepository.getAdBoardEntityByAdId(adId)
+                .orElseThrow(() -> new AdNotFoundException("Ad with id " + adId + " not found for getItemByAdId"));
         return new AdBoardDto(adBoardEntity).toModel();
     }
 
     @Transactional
-    public void updateAd(UUID adId, AdBoardUpdateRequest updateRequest) throws Exception {
+    public void updateAd(UUID adId, AdBoardUpdateRequest updateRequest) {
         AdBoardEntity adBoardEntity = adBoardRepository.getAdBoardEntityByAdId(adId)
                 .orElseThrow(() -> new AdNotFoundException("Ad with id " + adId + " not found"));
 
-        if (updateRequest.title() != null && !updateRequest.title().equals(adBoardEntity.getTitle())) {
-            adBoardEntity.setTitle(updateRequest.title());
-        }
-
-        if (updateRequest.price() != null && !updateRequest.price().equals(adBoardEntity.getPrice())) {
-            adBoardEntity.setPrice(updateRequest.price());
-        }
-
-        if (updateRequest.contact_data() != null && !updateRequest.contact_data()
-                .equals(adBoardEntity.getContactData())) {
-            if (adBoardRepository.existsByContactData(updateRequest.contact_data())) {
-                throw new Exception(
-                        "contact data already taken"
-                );
+        try {
+            if (updateRequest.title() != null && !updateRequest.title().equals(adBoardEntity.getTitle())) {
+                adBoardEntity.setTitle(updateRequest.title());
             }
-            adBoardEntity.setContactData(updateRequest.contact_data());
-        }
 
-        if (updateRequest.city() != null && !updateRequest.city().equals(adBoardEntity.getCity())) {
-            adBoardEntity.setCity(updateRequest.city());
-        }
+            if (updateRequest.price() != null && !updateRequest.price().equals(adBoardEntity.getPrice())) {
+                adBoardEntity.setPrice(updateRequest.price());
+            }
 
-        adBoardRepository.save(adBoardEntity);
+            if (updateRequest.contact_data() != null && !updateRequest.contact_data()
+                    .equals(adBoardEntity.getContactData())) {
+                if (adBoardRepository.existsByContactData(updateRequest.contact_data())) {
+                    throw new ContactDataAlreadyExistsException("contact data already taken");
+                }
+                adBoardEntity.setContactData(updateRequest.contact_data());
+            }
+
+            if (updateRequest.city() != null && !updateRequest.city().equals(adBoardEntity.getCity())) {
+                adBoardEntity.setCity(updateRequest.city());
+            }
+
+            adBoardRepository.save(adBoardEntity);
+
+        } catch (ContactDataAlreadyExistsException ex) {
+            throw new RuntimeException("Contact data already exists: " + ex.getMessage(), ex);
+        } catch (Exception ex) {
+            throw new RuntimeException("Error updating ad: " + ex.getMessage(), ex);
+        }
     }
 
 }
