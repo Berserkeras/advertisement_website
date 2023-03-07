@@ -10,7 +10,7 @@ const initialState = {
     adId: "",
     title: "",
     description: "",
-    price: null,
+    price: "",
     city: "",
     category: "",
     image: null,

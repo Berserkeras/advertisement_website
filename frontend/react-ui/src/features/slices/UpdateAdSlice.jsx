@@ -5,11 +5,11 @@ import customFetch from "../Axios";
 export const initialState = {
     isLoading: false,
     ad: {
-        title: "",
-        description: "",
-        price: "",
-        city: "",
-        category: "",
+        title: undefined,
+        description: undefined,
+        price: undefined,
+        city: undefined,
+        category: undefined,
         adId: "",
         image: null,
     },
