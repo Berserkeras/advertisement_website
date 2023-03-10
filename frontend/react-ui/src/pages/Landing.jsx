@@ -36,7 +36,7 @@ const Landing = () => {
     return (
         <LinkTree>
             <LinkItem to="create">Create Ad</LinkItem>
-            <LinkItem to="check">Check Ads</LinkItem>
+            <LinkItem to="ads">Check Ads</LinkItem>
             <LinkItem to="update">Update Ad</LinkItem>
             <LinkItem to="delete">Delete Ad</LinkItem>
         </LinkTree>
