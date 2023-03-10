@@ -83,7 +83,7 @@ export const AdCheckStyles = styled.main`
       width: 95vw;
     }
   }
-  
+
   .search-form {
     width: 90vw;
     max-width: 1170px;
@@ -96,7 +96,7 @@ export const AdCheckStyles = styled.main`
     width: 100%;
     border: transparent;
     max-width: 600px;
-    background: #d81313;
+    background: #ffffff;
     padding: 1rem;
     font-size: 1rem;
     border-radius: 0.25rem;
@@ -206,7 +206,7 @@ export const AdCheckStyles = styled.main`
     text-transform: capitalize;
     padding: 0.25rem 0.5rem;
     background: hsl(205, 78%, 60%);
-    color: #d81313;
+    color: #000000;
     border-radius: 0.25rem;
     display: inline-block;
     margin-top: 0.5rem;

@@ -12,7 +12,7 @@ const initialState = {
         category: undefined,
         adId: "",
         image: null,
-        imageUrl: null // New attribute to store image URL
+        imageUrl: null
     },
 };
 
@@ -20,10 +20,8 @@ export const fetchAds = createAsyncThunk(
     'read/fetchAds',
     async () => {
         const formData = new FormData();
-        // Add any fields you need to the formData object
         formData.append('title', null);
         formData.append('description', null);
-        // Add any files you need to upload
         formData.append('image', null);
 
         const body = new URLSearchParams(formData).toString();
@@ -34,7 +32,6 @@ export const fetchAds = createAsyncThunk(
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
             transformResponse: [(data, headers) => {
-                // Remove the headers property from the response
                 delete headers["headers"];
                 return data;
             }]
@@ -42,7 +39,6 @@ export const fetchAds = createAsyncThunk(
         });
         console.log("before map")
         const ads = JSON.parse(resp.data).map(ad => {
-            //console.log("resp ads: " + ad.image)
             const blob = new Blob([new Uint8Array(atob(ad.image).split('').map(
                 (char) => char.charCodeAt(0)))], {type: 'image/png'});
             console.log("READ AD SLICE: " + blob.type)
@@ -51,20 +47,7 @@ export const fetchAds = createAsyncThunk(
                 imageUrl:  URL.createObjectURL(blob)
             };
         });
-        console.log(ads)
         return ads;
-        // console.log(resp.config.url); // Log the request URL
-        // // console.log("req:" + JSON.stringify(resp.data))
-        // const { status, data } = resp;
-        // //console.log(data)
-        //
-        // if (status === 200) {
-        //
-        //
-        //     //  return  data;
-        // } else {
-        //     console.log("asd")
-        // }
     }
 );
 
@@ -88,9 +71,6 @@ const readAdSlice = createSlice({
                 state.isLoading = true;
             })
             .addCase(fetchAds.fulfilled, (state, action) => {
-                // action.payload.data
-                console.log(action);
-
                 state.isLoading = false;
                 const ads = action.payload;
                 state.ads = ads;
