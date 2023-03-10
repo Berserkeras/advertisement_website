@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -77,6 +78,11 @@ public class AdBoardService {
             String city = updateRequest.city();
             if (StringUtils.hasText(city) && !city.equals(adBoardEntity.getCity())) {
                 adBoardEntity.setCity(city);
+            }
+
+            byte[] image = updateRequest.image();
+            if (StringUtils.hasText(Arrays.toString(image)) && !Arrays.equals(image, adBoardEntity.getImage())) {
+                adBoardEntity.setImage(image);
             }
 
             adBoardRepository.save(adBoardEntity);

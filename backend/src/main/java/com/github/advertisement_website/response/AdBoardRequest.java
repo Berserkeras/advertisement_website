@@ -2,7 +2,7 @@ package com.github.advertisement_website.response;
 
 import java.math.BigDecimal;
 
-public record AdBoardUpdateRequest(
+public record AdBoardRequest (
 
     String title,
     String city,
@@ -11,4 +11,4 @@ public record AdBoardUpdateRequest(
     BigDecimal price,
     byte[] image
 ) {
-}
+    }
