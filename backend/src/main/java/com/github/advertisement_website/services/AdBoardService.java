@@ -10,7 +10,10 @@ import com.github.advertisement_website.response.AdBoardUpdateRequest;
 import com.github.advertisement_website.exception.ContactDataAlreadyExistsException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
+import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -54,24 +57,32 @@ public class AdBoardService {
                 .orElseThrow(() -> new AdNotFoundException("Ad with id " + adId + " not found"));
 
         try {
-            if (updateRequest.title() != null && !updateRequest.title().equals(adBoardEntity.getTitle())) {
-                adBoardEntity.setTitle(updateRequest.title());
+            String title = updateRequest.title();
+            if (StringUtils.hasText(title) && !title.equals(adBoardEntity.getTitle())) {
+                System.out.println("pass");
+                adBoardEntity.setTitle(title);
             }
-
-            if (updateRequest.price() != null && !updateRequest.price().equals(adBoardEntity.getPrice())) {
-                adBoardEntity.setPrice(updateRequest.price());
+            BigDecimal price = updateRequest.price();
+            System.out.println("price: " + price);
+            if (price != null && !price.equals(adBoardEntity.getPrice())) {
+                adBoardEntity.setPrice(price);
             }
-
-            if (updateRequest.contact_data() != null && !updateRequest.contact_data()
+            String contactData = updateRequest.contact_data();
+            if (StringUtils.hasText(contactData) && !contactData
                     .equals(adBoardEntity.getContactData())) {
-                if (adBoardRepository.existsByContactData(updateRequest.contact_data())) {
+                if (adBoardRepository.existsByContactData(contactData)) {
                     throw new ContactDataAlreadyExistsException("contact data already taken");
                 }
-                adBoardEntity.setContactData(updateRequest.contact_data());
+                adBoardEntity.setContactData(contactData);
+            }
+            String city = updateRequest.city();
+            if (StringUtils.hasText(city) && !city.equals(adBoardEntity.getCity())) {
+                adBoardEntity.setCity(city);
             }
 
-            if (updateRequest.city() != null && !updateRequest.city().equals(adBoardEntity.getCity())) {
-                adBoardEntity.setCity(updateRequest.city());
+            byte[] image = updateRequest.image();
+            if (StringUtils.hasText(Arrays.toString(image)) && !Arrays.equals(image, adBoardEntity.getImage())) {
+                adBoardEntity.setImage(image);
             }
 
             adBoardRepository.save(adBoardEntity);

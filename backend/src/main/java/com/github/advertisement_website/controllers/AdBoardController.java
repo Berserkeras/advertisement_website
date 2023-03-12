@@ -4,14 +4,18 @@ import com.github.advertisement_website.dto.AdBoardDto;
 import com.github.advertisement_website.entity.AdBoardEntity;
 import com.github.advertisement_website.exception.AdNotFoundException;
 import com.github.advertisement_website.model.AdBoardModel;
+import com.github.advertisement_website.response.AdBoardRequest;
 import com.github.advertisement_website.response.DeleteAdBoardResponse;
 import com.github.advertisement_website.response.AdBoardUpdateRequest;
 import com.github.advertisement_website.services.AdBoardService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 
+import java.util.Enumeration;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.UUID;
@@ -30,14 +34,21 @@ public class AdBoardController {
         this.adBoardService = adBoardService;
     }
 
-    @GetMapping
+    @PostMapping(value = "/check-ad", consumes = "application/x-www-form-urlencoded")
     @CrossOrigin
-    public List<AdBoardModel> getAllBoardAds() {
-        return adBoardService.getAllBoardAds().stream()
+    public ResponseEntity<?> addBoardAd(HttpServletRequest request, @ModelAttribute AdBoardDto adBoardDto) {
+        Enumeration<String> headerNames = request.getHeaderNames();
+        while (headerNames.hasMoreElements()) {
+            String headerName = headerNames.nextElement();
+            String headerValue = request.getHeader(headerName);
+            System.out.println(headerName + ": " + headerValue);
+        }
+
+        List<AdBoardModel> adBoardModels = adBoardService.getAllBoardAds().stream()
                 .map(adBoard -> new AdBoardDto(adBoard).toModel())
                 .collect(Collectors.toList());
+        return new ResponseEntity<>(adBoardModels, HttpStatus.OK);
     }
-
     @PostMapping
     @CrossOrigin
     public void addBoardAd(@RequestBody AdBoardEntity adBoardEntity) {

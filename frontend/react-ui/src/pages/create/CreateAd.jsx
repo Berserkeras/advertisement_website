@@ -42,10 +42,12 @@ const CreateAd = () => {
     };
 
     useEffect(() => {
+        if (create?.length) {
             setTimeout(() => {
                 console.log('show UUID:', create);
-                navigate(`/ad-id/${create}`, { state: { create }, replace: true });
+                navigate(`/ad-id/${create}`, {state: {create}, replace: true});
             }, 500);
+        }
     }, [create, navigate]);
 
     return (
@@ -60,7 +62,8 @@ const CreateAd = () => {
                 ].map((input) => (
                     <AdForm key={input.name} {...input} value={values[input.name]} handleChange={handleChange} />
                 ))}
-                <AdForm type="file" name="image" labelText="image" handleChange={handleImageChange} />
+                <AdForm type="file" name="image" labelText="image" handleChange={(event) =>
+                    handleImageChange(event, setValues, toast)} />
                 <button type="submit" className="btn-register" disabled={isLoading}>
                     {isLoading ? 'Loading...' : 'Create'}
                 </button>`

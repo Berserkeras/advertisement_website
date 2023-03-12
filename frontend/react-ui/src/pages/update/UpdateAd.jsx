@@ -10,7 +10,7 @@ const initialState = {
     adId: "",
     title: "",
     description: "",
-    price: null,
+    price: "",
     city: "",
     category: "",
     image: null,
@@ -65,15 +65,10 @@ const UpdateAd = () => {
                                     value={values[input.name]}
                                     handleChange={handleChange}
                                     placeholder={ad[input.name]}
-
                             />
                         ))}
-                        <AdForm
-                            type="file"
-                            name="image"
-                            labelText="image"
-                            handleChange={handleImageChange}
-                        />
+                        <AdForm type="file" name="image" labelText="image" handleChange={(event) =>
+                            handleImageChange(event, setValues, toast)} />
                     </>
                 ) : (
                     <AdForm

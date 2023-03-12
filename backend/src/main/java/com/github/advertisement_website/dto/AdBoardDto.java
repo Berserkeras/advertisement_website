@@ -24,6 +24,7 @@ public class AdBoardDto implements Serializable {
         adBoardModel.setContactData(adBoardEntity.getContactData());
         adBoardModel.setPrice(adBoardEntity.getPrice());
         adBoardModel.setViewCount(adBoardEntity.getViewCount());
+        adBoardModel.setImage(adBoardEntity.getImage());
         adBoardModel.setAdId(adBoardEntity.getAdId());
         return adBoardModel;
     }
