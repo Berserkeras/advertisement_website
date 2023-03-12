@@ -144,13 +144,20 @@ export const AdCheckStyles = styled.main`
     overflow: hidden;
   }
 
-  .advertisement img {
-    width: 240px;
-    height: 240px;
-    display: block;
-    object-fit: cover;
-  }
+  //.advertisement img {
+  //  width: 240px;
+  //  height: 240px;
+  //  display: block;
+  //  object-fit: cover;
+  //}
 
+  .advertisement img {
+  width: 100%;
+  height: 400px;
+  display: block;
+  object-fit: cover;
+  }
+  
   .ad-info {
     position: absolute;
     bottom: 0;

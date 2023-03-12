@@ -1,5 +1,6 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import customFetch from "../Axios";
+import {toast} from "react-toastify";
 
 const initialState = {
     isLoading: false,
@@ -18,36 +19,36 @@ const initialState = {
 
 export const fetchAds = createAsyncThunk(
     'read/fetchAds',
-    async () => {
+    async (thunkAPI) => {
         const formData = new FormData();
         formData.append('title', null);
         formData.append('description', null);
         formData.append('image', null);
 
         const body = new URLSearchParams(formData).toString();
+        try {
+            console.log("trying")
+            const resp = await customFetch.post('api/v1/ad-board/check-ad', body, {
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            });
+            const ads = resp.data.map(ad => {
+                const blob = new Blob([new Uint8Array(atob(ad.image).split('').map(
+                    (char) => char.charCodeAt(0)))], {type: 'image/png'});
+                return {
+                    ...ad,
+                    imageUrl: URL.createObjectURL(blob)
+                };
+            });
+            return ads;
+        } catch (error) {
+            console.log('ERROR: response.status: ' + error.response.status)
+            console.log(error.config.data)
+            toast.error(`Ad load error`)
+            return thunkAPI.rejectWithValue(error.response.data)
+        }
 
-        console.log("trying")
-        const resp = await customFetch.post('api/v1/ad-board/check-ad', body, {
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            transformResponse: [(data, headers) => {
-                delete headers["headers"];
-                return data;
-            }]
-
-        });
-        console.log("before map")
-        const ads = JSON.parse(resp.data).map(ad => {
-            const blob = new Blob([new Uint8Array(atob(ad.image).split('').map(
-                (char) => char.charCodeAt(0)))], {type: 'image/png'});
-            console.log("READ AD SLICE: " + blob.type)
-            return {
-                ...ad,
-                imageUrl:  URL.createObjectURL(blob)
-            };
-        });
-        return ads;
     }
 );
 
@@ -84,5 +85,5 @@ const readAdSlice = createSlice({
     },
 });
 
-export const { setIsLoading, setIsError, setQuery } = readAdSlice.actions;
+export const {setIsLoading, setIsError, setQuery} = readAdSlice.actions;
 export default readAdSlice.reducer;

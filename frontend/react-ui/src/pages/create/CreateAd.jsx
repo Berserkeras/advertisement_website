@@ -62,7 +62,8 @@ const CreateAd = () => {
                 ].map((input) => (
                     <AdForm key={input.name} {...input} value={values[input.name]} handleChange={handleChange} />
                 ))}
-                <AdForm type="file" name="image" labelText="image" handleChange={(event) => handleImageChange(event, setValues, toast)} />
+                <AdForm type="file" name="image" labelText="image" handleChange={(event) =>
+                    handleImageChange(event, setValues, toast)} />
                 <button type="submit" className="btn-register" disabled={isLoading}>
                     {isLoading ? 'Loading...' : 'Create'}
                 </button>`

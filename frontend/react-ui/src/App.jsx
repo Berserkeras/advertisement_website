@@ -20,6 +20,7 @@ function App () {
                 <Route exact path="/delete" element={<DeleteAd />} />
                 <Route exact path="/update" element={<UpdateAd />} />
                 <Route exact path="/ads" element={<CheckAds />} />
+                <Route exact path="/ads/:slug" element={<Error />} />
                 <Route path="*" element={<Error />} />
             </Routes>
             <ToastContainer />

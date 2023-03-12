@@ -8,7 +8,7 @@ export const handleImageChange = (event, setValues, toast) => {
         const isPng = file.type === 'image/jpeg';
         isPng
             ? setValues((prev) => ({ ...prev, [image]: imageData }))
-            : toast.error('Wrong image format. Please upload a JPG file.');
+            : toast.error('Wrong image format. Please upload a .JPG image.');
     };
 
     reader.readAsDataURL(file);

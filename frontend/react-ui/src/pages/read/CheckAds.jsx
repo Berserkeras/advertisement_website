@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {fetchAds} from '../../features/slices/ReadAdSlice';
-import {Link} from 'react-router-dom';
+import {Link, useParams} from 'react-router-dom';
 import {AdCheckStyles, GlobalStyle} from '../../assets/AdCheckStyles';
 
 const CheckAds = () => {
@@ -9,6 +9,7 @@ const CheckAds = () => {
     const dispatch = useDispatch();
     const [searchTerm, setSearchTerm] = useState('');
     const adsRef = useRef(ads);
+    const { slug } = useParams();
 
     useEffect(() => {
         dispatch(fetchAds());
@@ -27,7 +28,7 @@ const CheckAds = () => {
         }
     }, [ads]);
 
-    if (isLoading) {
+    if (isLoading || ads == null) {
         return <div className="loading"></div>;
     }
 
